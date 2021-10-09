@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.dao.ClothesMapper">
+	<!--根据关键描述查询商品 -->
+	<select id="getClothesList" parameterType="clothes" resultType="clothes">
+		select * from clothes
+		<trim prefix="where">
+			<if test="gdescription!=null and gdescription!=''">gdescription like concat('%',#{gdescription},'%')</if>
+		</trim>
+	</select>
+
+	<!--根据关键描述按类别查询商品 -->
+	<select id="getCategoryList" parameterType="clothes" resultType="clothes">
+		select * from clothes
+		<trim prefix="where" prefixOverrides="and">
+		    gcategory = #{gcategory}
+			<if test="gdescription!=null and gdescription!=''">gdescription like concat('%',#{gdescription},'%')</if>
+		</trim>
+	</select>
+
+</mapper>
